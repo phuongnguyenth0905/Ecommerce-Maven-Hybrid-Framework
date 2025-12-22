@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite parallel="tests" name="ecommerce" thread-count="2">
+    <listeners>
+        <listener class-name="commons.MethodListener"/>
+        <!--<listener class-name="reportConfig.AllureTestListener" />
+        <listener class-name="io.qameta.allure.testng.AllureTestNg" />
+        <listener class-name="reportConfig.ExtentTestListenerV5"/>
+        <listener class-name="org.uncommons.reportng.HTMLReporter" />
+    <listener class-name="org.uncommons.reportng.JUnitXMLReporter" />-->
+    </listeners>
+    <parameter name="url" value="https://ecommerce-playground.lambdatest.io/"/>
+     <test name="Run on chrome">
+        <parameter name="browser" value="chrome" />
+        <classes>
+    <!-- <class	name="com.ecommerce.register.TC_01_User_Register" />
+      <class	name="com.ecommerce.login.TC_02_User_Login" />
+      <class	name="com.ecommerce.account.Account_EditMyAccount" />
+     <class	name="com.ecommerce.account.Account_ChangePassword" />
+     <class	name="com.ecommerce.account.Account_AddAddress" />
+     <class	name="com.ecommerce.account.Account_AddressBook" />
+     <class	name="com.ecommerce.account.Account_MyVoucher" />-->
+     <class	name="com.ecommerce.product.Shopping_Cart" />
+  </classes>
+</test>
+    <test name="Run on firefox">
+        <parameter name="browser" value="firefox"/>
+        <classes>
+            <class name="com.ecommerce.product.Shopping_Cart"/>
+        </classes>
+    </test>
+    <test name="Run on EDGE_CHROMIUM">
+        <parameter name="browser" value="EDGE_CHROMIUM"/>
+        <classes>
+            <class name="com.ecommerce.product.Shopping_Cart"/>
+        </classes>
+    </test>
+</suite>
