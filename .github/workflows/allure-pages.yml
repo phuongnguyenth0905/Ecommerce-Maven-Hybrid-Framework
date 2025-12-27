@@ -1,76 +1,47 @@
-name: UI Tests + Allure Report (Pages)
+name: CI with Allure Report  # Tên workflow
 
 on:
   push:
-    branches: [ "master" ]
-  workflow_dispatch:
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+    branches: [ master ]  # Chạy khi push lên main (có thể thêm branch khác)
+  pull_request:
+    branches: [ master ]  # Chạy khi PR
 
 jobs:
   test:
-    runs-on: ubuntu-latest
-
+    runs-on: ubuntu-latest  # Máy ảo Linux miễn phí
     steps:
-      - name: Checkout
-        uses: actions/checkout@v5
+      - uses: actions/checkout@v4  # Step 1: Checkout code từ repo
 
-      - name: Set up Java 17
+      - name: Set up JDK 17  # Step 2: Setup Java (phù hợp với dự án Selenium)
         uses: actions/setup-java@v4
         with:
-          distribution: "temurin"
-          java-version: "17"
-          cache: "maven"
+          java-version: '17'
+          distribution: 'temurin'
 
-      - name: Run tests (TestNG)
-        run: mvn -B clean test
+      - name: Run Maven Tests  # Step 3: Chạy test
+        run: mvn clean test
 
-      # Upload allure-results để job sau dùng
-      - name: Upload Allure Results
+      - name: Get Allure history  # Step 4: Giữ history report cũ (cho trend)
+        uses: actions/checkout@v4
         if: always()
-        uses: actions/upload-artifact@v4
+        continue-on-error: true
         with:
-          name: allure-results
-          path: |
-            allure-results
-            target/allure-results
-          if-no-files-found: warn
+          ref: gh-pages  # Branch lưu report
+          path: gh-pages
 
-  report-and-deploy:
-    needs: test
-    runs-on: ubuntu-latest
-    if: always()
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-
-      - name: Download Allure Results
-        uses: actions/download-artifact@v4
+      - name: Generate Allure Report  # Step 5: Generate report dùng action sẵn
+        uses: simple-elf/allure-report-action@master
+        if: always()
+        id: allure-report
         with:
-          name: allure-results
-          path: allure-results
+          allure_results: target/allure-results  # Thư mục results
+          gh_pages: gh-pages  # Thư mục history
+          allure_report: allure-report  # Output folder
+          allure_history: allure-history  # History folder
 
-      # Generate Allure HTML (có history)
-      - name: Generate Allure Report
-        uses: simple-elf/allure-report-action@v1
+      - name: Deploy to GitHub Pages  # Step 6: Publish report lên Pages
+        if: always()
+        uses: peaceiris/actions-gh-pages@v4
         with:
-          allure_results: allure-results
-          allure_report: allure-report
-          keep_reports: 20
-
-      # Deploy thư mục HTML lên GitHub Pages
-      - name: Upload Pages artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: allure-report
-
-      - name: Deploy to GitHub Pages
-        uses: actions/deploy-pages@v4
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # Token tự động
+          publish_dir: allure-history  # Folder publish
