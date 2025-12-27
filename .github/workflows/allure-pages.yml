@@ -2,9 +2,9 @@ name: CI with Allure Report  # Tên workflow
 
 on:
   push:
-    branches: [ master ]  # Chạy khi push lên main (có thể thêm branch khác)
+    branches: [ main ]  # Chạy khi push lên main (có thể thêm branch khác)
   pull_request:
-    branches: [ master ]  # Chạy khi PR
+    branches: [ main ]  # Chạy khi PR
 
 jobs:
   test:
