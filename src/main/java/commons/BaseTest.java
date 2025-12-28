@@ -1,4 +1,5 @@
 package commons;
+
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.apache.logging.log4j.LogManager;
 import org.openqa.selenium.WebDriver;
@@ -17,7 +18,6 @@ import pageObjects.LoginPageObject;
 import pageObjects.MyAccountPageObject;
 
 import java.io.File;
-import java.io.IOException;
 import java.time.Duration;
 import java.util.Collections;
 import java.util.HashMap;
@@ -31,9 +31,11 @@ public class BaseTest {
     protected BaseTest() {
         log = LogManager.getLogger(getClass());
     }
+
     public WebDriver getDriver() {
         return driver;
     }
+
     protected WebDriver getBrowserDriver(String browserName) {
         BrowserEnum browser = BrowserEnum.valueOf(browserName.toUpperCase());
         if (browser == BrowserEnum.FIREFOX) {
@@ -43,8 +45,8 @@ public class BaseTest {
             WebDriverManager.chromedriver().setup();
             driver = new ChromeDriver();
         } else if (browser == BrowserEnum.EDGE_CHROMIUM) {
-              System.setProperty("webdriver.edge.driver", GlobalConstants.PROJECT_PATH + File.separator + "browserDriver" + File.separator + "msedgedriver.exe");
-                driver = new EdgeDriver();
+            System.setProperty("webdriver.edge.driver", GlobalConstants.PROJECT_PATH + File.separator + "browserDriver" + File.separator + "msedgedriver.exe");
+            driver = new EdgeDriver();
         } else {
             throw new RuntimeException("Please input the browser name!");
         }
@@ -53,7 +55,9 @@ public class BaseTest {
         return driver;
 
     }
+
     protected WebDriver getBrowserDriver(String browserName, String url) {
+        boolean isCI = System.getenv("CI") != null;
         BrowserEnum browser = BrowserEnum.valueOf(browserName.trim().toUpperCase());
 
         switch (browser) {
@@ -63,6 +67,9 @@ public class BaseTest {
                 FirefoxOptions ffOptions = new FirefoxOptions();
                 ffOptions.addArguments("--disable-notifications");
                 ffOptions.addPreference("dom.webnotifications.enabled", false);
+                if (isCI) {
+                    ffOptions.addArguments("-headless");
+                }
                 driver = new FirefoxDriver(ffOptions);
                 break;
 
@@ -73,13 +80,27 @@ public class BaseTest {
                 options.addArguments("--disable-notifications");
                 options.addArguments("--start-maximized");
                 options.addArguments("--disable-infobars");
+                if (isCI) {
+                    options.addArguments("--headless=new");
+                    options.addArguments("--disable-gpu");
+                    options.addArguments("--no-sandbox");
+                    options.addArguments("--disable-dev-shm-usage");
+                    options.addArguments("--window-size=1920,1080");
+                }
+                else {
+                    options.addArguments("--start-maximized");
+                }
+
                 options.setExperimentalOption("useAutomationExtension", false);
-                options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
+                options.setExperimentalOption("excludeSwitches",
+                        Collections.singletonList("enable-automation"));
 
                 Map<String, Object> prefs = new HashMap<>();
                 prefs.put("credentials_enable_service", false);
                 prefs.put("profile.password_manager_enable", false);
                 options.setExperimentalOption("prefs", prefs);
+                options.setExperimentalOption("useAutomationExtension", false);
+                options.setExperimentalOption("excludeSwitches", Collections.singletonList("enable-automation"));
 
                 driver = new ChromeDriver(options);
                 break;
@@ -91,7 +112,12 @@ public class BaseTest {
                 edgeOptions.addArguments("--start-maximized");
                 edgeOptions.addArguments("--disable-infobars");
                 edgeOptions.addArguments("--remote-allow-origins=*");
-
+                if (isCI) {
+                    edgeOptions.addArguments("--headless=new");
+                    edgeOptions.addArguments("--window-size=1920,1080");
+                } else {
+                    edgeOptions.addArguments("--start-maximized");
+                }
                 Map<String, Object> edgePrefs = new HashMap<>();
                 edgePrefs.put("credentials_enable_service", false);
                 edgePrefs.put("profile.password_manager_enable", false);
@@ -112,12 +138,16 @@ public class BaseTest {
 
                 driver = new ChromeDriver(coccocOptions);
                 break;
+
             default:
                 throw new RuntimeException("Please input a supported browser!");
         }
         driver.get(url);
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(GlobalConstants.LONG_TIMEOUT));
-        driver.manage().window().maximize();
+        if (!isCI) {
+            driver.manage().window().maximize();
+        }
+
         return driver;
     }
 
@@ -133,6 +163,7 @@ public class BaseTest {
         }
         return pass;
     }
+
     protected void verifyTrue(boolean condition, String message) {
         try {
             Assert.assertTrue(condition, message);
@@ -167,6 +198,7 @@ public class BaseTest {
         }
         return pass;
     }
+
     protected void closeBrowserDriver() {
         if (driver == null) {
             return;
@@ -227,7 +259,7 @@ public class BaseTest {
     }
 
     @AfterSuite(alwaysRun = true)
-    public void afterSuite(){
+    public void afterSuite() {
         closeBrowserDriver();
     }
 }

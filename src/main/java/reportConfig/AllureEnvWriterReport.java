@@ -1,12 +1,19 @@
 package reportConfig;
+
+import commons.GlobalConstants;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Properties;
+
 public class AllureEnvWriterReport {
+
     public static void writeEnvironment(String projectRoot) {
         try {
-            String folder = projectRoot + File.separator + "allure-results";
+            String folder = projectRoot + File.separator + "target/allure-results";
             File dir = new File(folder);
             if (!dir.exists()) {
                 dir.mkdirs();
@@ -17,8 +24,8 @@ public class AllureEnvWriterReport {
             props.setProperty("Tester", "Phuong Nguyen");
             props.setProperty("Environment", "Staging");
             props.setProperty("Browser", "Chrome");
-            props.setProperty("OS", System.getProperty("os.name"));
-            props.setProperty("Java.Version", System.getProperty("java.version"));
+            props.setProperty("OS", GlobalConstants.OS_NAME);
+            props.setProperty("Java.Version", GlobalConstants.JAVA_VERSION);
 
             try (FileOutputStream fos = new FileOutputStream(filePath)) {
                 props.store(fos, "Allure environment");

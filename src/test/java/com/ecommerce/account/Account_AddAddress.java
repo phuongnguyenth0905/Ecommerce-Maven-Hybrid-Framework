@@ -1,6 +1,7 @@
 package com.ecommerce.account;
 
 import commons.BaseTest;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -38,6 +39,7 @@ public class Account_AddAddress extends BaseTest {
     }
 
     @Test
+    @Step("Input information user")
     public void AccountDashboard_01() {
         log.info("Add Address Account - Step 01: Open Add Address Account Link");
         accountAddressBookPage = myAccountPage.openSidebarPageByName("Address Book", AccountAddressBookPageObject.class);

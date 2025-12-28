@@ -17,7 +17,7 @@
         <selenium.version>4.38.0</selenium.version>
         <testng.version>7.11.0</testng.version>
         <webdrivermanager.version>6.3.3</webdrivermanager.version>
-        <allure.version>2.29.0</allure.version>
+        <allure.version>2.32.0</allure.version>
         <extent.version>5.1.2</extent.version>
         <jackson.version>2.19.4</jackson.version>
         <poi.version>5.5.0</poi.version>
@@ -53,7 +53,7 @@
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-testng</artifactId>
-            <version>${allure.version}</version>
+            <version>2.32.0</version>
         </dependency>
 
         <!-- Extent Reports -->
@@ -146,9 +146,14 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
-                    <suiteXmlFiles>
-                        <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
-                    </suiteXmlFiles>
+                    <systemPropertyVariables>
+                        <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+                    </systemPropertyVariables>
+                    <!-- Argument -->
+                    <argLine>
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                    </argLine>
+
                     <testFailureIgnore>true</testFailureIgnore>
                 </configuration>
             </plugin>

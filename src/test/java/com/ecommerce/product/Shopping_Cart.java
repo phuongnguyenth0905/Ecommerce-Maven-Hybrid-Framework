@@ -1,6 +1,7 @@
 package com.ecommerce.product;
 
 import commons.BaseTest;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -28,8 +29,8 @@ public class Shopping_Cart extends BaseTest {
 
 
     }
-
     @Test
+    @Step("Shopping Cart Add Products")
     public void Cart_Add_01() {
         log.info("Shopping Cart - Add Product - Steps 01: Open navbar Top categories of 'Software' menu");
         productsPage = myAccountPage.openSidebarMenuHome("Software", ProductsPageObject.class);
@@ -54,10 +55,11 @@ public class Shopping_Cart extends BaseTest {
 
         log.info("Shopping Cart - Add Product - Steps 08: Add Product 'HTC Touch HD' into Shopping Cart");
         productsPage.closeQuickView();
-       productsPage.refreshPage(driver);
+        productsPage.refreshPage(driver);
     }
 
     @Test
+    @Step("Product Details Shopping Cart UI")
     public void Edit_Checkout_Cart_02() {
         log.info("Shopping Cart - Product Details- Steps 01: Click Shopping Cart Icon");
         productsPage.clickToCartIcon();
@@ -74,8 +76,8 @@ public class Shopping_Cart extends BaseTest {
         checkOutPage.updateProduct("HTC Touch HD", "3");
 
         log.info("Shopping Cart - Product Details - Steps 05: Verify message after update product");
-        verifyTrue(checkOutPage.getSuccessMessageText(),"Success: You have modified your shopping cart!");
-        productDetailPage= checkOutPage.clickProductName("HTC Touch HD");
+        verifyTrue(checkOutPage.getSuccessMessageText(), "Success: You have modified your shopping cart!");
+        productDetailPage = checkOutPage.clickProductName("HTC Touch HD");
 
     }
 

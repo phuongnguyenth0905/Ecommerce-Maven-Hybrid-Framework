@@ -1,16 +1,17 @@
 # Maven
 target/
-*.log
+${project.build.directory}/
 
-# IntelliJ
+# IDE
 .idea/
-*.iml
-
-# Eclipse
-.settings/
-.project
 .classpath
+.project
+.settings/
+
+# Logs & reports
+logs/
+reports/
+target/allure-results/
 
 # OS
 .DS_Store
-Thumbs.db
