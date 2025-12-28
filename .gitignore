@@ -15,3 +15,9 @@ target/allure-results/
 
 # OS
 .DS_Store
+allure-results/
+allure-report/
+
+.allure/
+bin/
+
