@@ -23,9 +23,6 @@
         <poi.version>5.5.0</poi.version>
         <aspectj.version>1.9.8</aspectj.version>
         <faker.version>1.0.2</faker.version>
-        <test.groups>default_group</test.groups>
-        <!-- Các property khác... -->
-
 
     </properties>
     <!-- Dependencies -->
@@ -162,10 +159,7 @@
                             <value>reportConfig.AllureReportListener</value>
                         </property>
                     </properties>
-                    <groups>${test.groups}</groups> <!-- Truyền groups từ command -->
-                    <systemPropertyVariables>
-                        <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
-                    </systemPropertyVariables>
+
                     <!-- Argument -->
                     <argLine>
                         -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
