@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 name: Run Automation Tests & Allure Report Phuong
 
 on:
@@ -14,16 +15,35 @@ on:
 
 permissions:
   contents: write  # Để push gh-pages
+=======
+name: Run Tests & Publish Allure Report
+
+on:
+  push:
+    branches: [ "master" ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+>>>>>>> b0e2b1c406a08680e2b6f009d945bceec04205c5
 
 jobs:
   test-and-report:
     runs-on: ubuntu-latest
+<<<<<<< HEAD
     steps:
       - uses: actions/checkout@v4
+=======
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+>>>>>>> b0e2b1c406a08680e2b6f009d945bceec04205c5
 
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
+<<<<<<< HEAD
           java-version: '17'
           distribution: 'temurin'
 
@@ -49,10 +69,38 @@ jobs:
           allure_history: allure-history
 
       - name: Deploy to GitHub Pages
+=======
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'maven'
+
+      - name: Run Maven Tests
+        run: mvn clean test -Dsurefire.suiteXmlFiles=testNG.xml
+
+      - name: Install Allure CLI
+        if: always()
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y default-jre
+          curl -o allure.tgz -Ls https://github.com/allure-framework/allure2/releases/download/2.27.0/allure-2.27.0.tgz
+          tar -zxvf allure.tgz
+          sudo mv allure-2.27.0 /opt/allure
+          sudo ln -s /opt/allure/bin/allure /usr/bin/allure
+          allure --version
+
+      - name: Generate Allure Report
+        if: always()
+        run: |
+          allure generate target/allure-results --clean -o allure-report
+          ls -la allure-report
+
+      - name: Deploy Allure Report to GitHub Pages
+>>>>>>> b0e2b1c406a08680e2b6f009d945bceec04205c5
         if: always()
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+<<<<<<< HEAD
           publish_branch: gh-pages
           publish_dir: allure-history
           force_orphan: true
@@ -61,3 +109,8 @@ jobs:
 
 outputs:
   report_url: https://phuongnguyenth0905.github.io/Ecommerce-Maven-Hybrid-Framework/  # Link report
+=======
+          publish_dir: ./allure-report
+          publish_branch: gh-pages
+          force_orphan: true
+>>>>>>> b0e2b1c406a08680e2b6f009d945bceec04205c5
