@@ -2,11 +2,9 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite parallel="tests" name="Ecommerce Project" thread-count="1">
     <listeners>
-        <listener class-name="reportConfig.AllureReportListener" />
-        <listener class-name="io.qameta.allure.testng.AllureTestNg" />
-
+        <listener class-name="reportConfig.AllureReportListener"/>
+        <listener class-name="io.qameta.allure.testng.AllureTestNg"/>
         <!--<listener class-name="commons.MethodListener"/>
-
         <listener class-name="reportConfig.ExtentTestListenerV5"/>
         <listener class-name="org.uncommons.reportng.HTMLReporter" />
     <listener class-name="org.uncommons.reportng.JUnitXMLReporter" />-->
@@ -26,7 +24,7 @@
             <class name="com.ecommerce.product.Shopping_Cart"/>
         </classes>
     </test>
-     <test name="Run on firefox">
+    <test name="Run on firefox">
         <parameter name="browser" value="firefox"/>
         <classes>
 
