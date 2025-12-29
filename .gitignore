@@ -1,23 +1,12 @@
 # Maven
 target/
-${project.build.directory}/
 
-# IDE
-.idea/
-.classpath
-.project
-.settings/
-
-# Logs & reports
-logs/
-reports/
-target/allure-results/
-
-# OS
-.DS_Store
+# Allure
 allure-results/
 allure-report/
-
 .allure/
-bin/
 
+# IDE / build
+bin/
+.idea/
+*.iml
