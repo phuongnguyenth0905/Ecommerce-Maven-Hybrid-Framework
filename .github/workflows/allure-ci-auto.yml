@@ -2,18 +2,18 @@ name: Run Automation Tests & Allure Report
 
 on:
   push:
-    branches: [ master ]  # Thay nếu dùng master
+    branches: [ master ]
   pull_request:
     branches: [ master ]
   workflow_dispatch:  # Bật nút "Run workflow" thủ công
     inputs:
       test_groups:  # Parameter để QA chọn groups
         description: 'Nhập groups test case (ví dụ: login,checkout,search - dùng dấu , phân cách)'
-        required: true
+        required: false
         default: 'login'  # Mặc định nếu không nhập
 
 permissions:
-  contents: write  # Để push gh-pages
+  contents: write
 
 jobs:
   test-and-report:
@@ -28,7 +28,7 @@ jobs:
           distribution: 'temurin'
 
       - name: Run Maven Tests
-        run: mvn clean test -Dtest.groups="${{ github.event.inputs.test_groups || 'login' }}" || true  # Chạy groups chọn, continue nếu fail
+        run: mvn clean test -X -Dtest.groups="${{ github.event.inputs.test_groups || 'login' }}" || true  # -X debug log, continue nếu fail
 
       - name: Get Allure history
         uses: actions/checkout@v4
@@ -58,6 +58,3 @@ jobs:
           force_orphan: true
           allow_empty_commit: true
           keep_files: false
-
-outputs:
-  report_url: https://phuongnguyenth0905.github.io/Ecommerce-Maven-Hybrid-Framework/  # Link report
