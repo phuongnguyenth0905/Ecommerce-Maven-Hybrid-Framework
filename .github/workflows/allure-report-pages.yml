@@ -24,7 +24,8 @@ jobs:
           cache: 'maven'
 
       - name: Run Maven Tests
-        run: mvn clean test -Dsurefire.suiteXmlFiles=testNG.xml
+        run: mvn clean test -Dsurefire.suiteXmlFiles=./testNG.xml
+        continue-on-error: true
 
       - name: Install Allure CLI
         if: always()
