@@ -1,13 +1,28 @@
 # Maven
 target/
-.target/
+*.log
+logs/
 
-# Allure
-allure-results/
-allure-report/
-.allure/
-
-# IDE / build
-bin/
+# IDE files
 .idea/
 *.iml
+.classpath
+.project
+.settings/
+
+# Eclipse
+.settings/
+bin/
+.externalToolBuilders/
+
+# Other
+*.class
+*.jar
+*.war
+*.ear
+temp/
+out/
+*.tmp
+*.bak
+*.swp
+*~
