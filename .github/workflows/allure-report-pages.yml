@@ -41,7 +41,7 @@ jobs:
         if: always()
         run: |
           allure generate target/allure-results --clean -o allure-report
-          ls -la allure-report
+          ls -la allure serve allure-results
 
       - name: Deploy Allure Report to GitHub Pages
         if: always()
