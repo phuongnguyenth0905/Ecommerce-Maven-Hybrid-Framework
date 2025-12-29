@@ -1,4 +1,4 @@
-name: Run Automation Tests & Allure Report
+name: Run Automation Tests & Allure Report Phuong
 
 on:
   push:
