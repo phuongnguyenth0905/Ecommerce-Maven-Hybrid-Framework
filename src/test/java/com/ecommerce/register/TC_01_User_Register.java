@@ -38,7 +38,7 @@ public class TC_01_User_Register extends BaseTest {
 
     }
 
-    @Test
+    @Test(groups="Register New User")
     public void TC_01_Register_New_User() {
         log.info("TC_01_User_Register - Step 02: Open Register Page");
         registerPage=homePage.openMyAccountHeaderItem("Register", RegisterPageObject.class);

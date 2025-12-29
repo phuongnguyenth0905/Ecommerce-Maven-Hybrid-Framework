@@ -30,7 +30,7 @@ public class TC_02_User_Login extends BaseTest {
         homePage = PageGeneratorManager.getPage(HomePageObject.class, driver);
     }
 
-    @Test
+    @Test(groups = "Login User")
     public void TC_01_Login() {
          log.info("TC_02_User_Login - Step 03: Click Login link");
         loginPage = homePage.openMyAccountHeaderItem("Login", LoginPageObject.class);

@@ -23,6 +23,9 @@
         <poi.version>5.5.0</poi.version>
         <aspectj.version>1.9.8</aspectj.version>
         <faker.version>1.0.2</faker.version>
+        <test.groups>default_group</test.groups>
+        <!-- Các property khác... -->
+
 
     </properties>
     <!-- Dependencies -->
@@ -146,6 +149,20 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.2.5</version>
                 <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>testngDynamic.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+                    <properties>
+                        <property>
+                            <name>usedefaultlisteners</name>
+                            <value>false</value>
+                        </property>
+                        <property>
+                            <name>listener</name>
+                            <value>reportConfig.AllureReportListener</value>
+                        </property>
+                    </properties>
+                    <groups>${test.groups}</groups> <!-- Truyền groups từ command -->
                     <systemPropertyVariables>
                         <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
                     </systemPropertyVariables>

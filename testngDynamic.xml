@@ -1,0 +1,23 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+<suite name="Ecommerce Suite" parallel="methods" thread-count="5">
+    <listeners>
+        <listener class-name="reportConfig.AllureReportListener"/> <!-- Listener Allure của bạn -->
+    </listeners>
+
+    <test name="Selected Tests">
+        <groups>
+            <run>
+                <include name="${groups}"/> <!-- ${groups} sẽ được truyền từ Maven -->
+            </run>
+        </groups>
+        <classes>
+            <class name="com.ecommerce.account.Account_EditMyAccount"/>
+            <class	name="com.ecommerce.account.Account_ChangePassword" />
+            <class	name="com.ecommerce.account.Account_AddAddress" />
+            <class	name="com.ecommerce.account.Account_AddressBook" />
+            <class	name="com.ecommerce.account.Account_MyVoucher" />
+            <class name="com.ecommerce.product.Shopping_Cart"/>
+            <!-- Thêm tất cả class test của bạn -->
+        </classes>
+    </test>
+</suite>

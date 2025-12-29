@@ -35,7 +35,7 @@ public class Account_ChangePassword extends BaseTest {
         passwordConfirm=passwordChange;
     }
 
-    @Test
+    @Test(groups = "Change password of Account User")
     public void AccountDashboard_01() {
         changePasswordPage=myAccountPage.openSidebarPageByName("Password", ChangePasswordPageObject.class);
         log.info("Edit Account - Step 01: Verify Edit Account page is displayed");
