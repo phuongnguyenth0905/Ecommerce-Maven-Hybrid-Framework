@@ -2,8 +2,11 @@
 target/
 *.log
 logs/
+.mvn/
+mvnw
+mvnw.cmd
 
-# IDE files
+# IDE - IntelliJ
 .idea/
 *.iml
 .classpath
@@ -15,6 +18,20 @@ logs/
 bin/
 .externalToolBuilders/
 
+# Allure
+allure-results/
+allure-report/
+.allure/
+
+# Selenium & temp files
+*.tmp
+*.bak
+*.swp
+*~
+chromedriver*
+geckodriver*
+msedgedriver*
+
 # Other
 *.class
 *.jar
@@ -22,7 +39,3 @@ bin/
 *.ear
 temp/
 out/
-*.tmp
-*.bak
-*.swp
-*~
