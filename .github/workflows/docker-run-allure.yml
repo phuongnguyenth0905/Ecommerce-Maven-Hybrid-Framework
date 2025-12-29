@@ -20,7 +20,7 @@ jobs:
       - name: Run tests in Docker
         run: |
           docker run --rm \
-          -v ${{ github.workspace }}/allure-results:/app/target/allure-results \
+          -v ${{ github.workspace }}/allure-results:/app/allure-results \
           automation-tests
 
       - name: Install Allure CLI
