@@ -45,7 +45,7 @@
             <class name="com.ecommerce.account.Account_AddAddress"/>
             <class name="com.ecommerce.account.Account_AddressBook"/>
             <class name="com.ecommerce.account.Account_MyVoucher"/>
-            <class name="com.ecommerce.product.Shopping_Cart"/>-->
+            <class name="com.ecommerce.product.Shopping_Cart"/>
         </classes>
-    </test>
+    </test>-->
 </suite>
