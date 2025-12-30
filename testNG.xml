@@ -13,13 +13,13 @@
     <test name="Run on chrome">
         <parameter name="browser" value="chrome"/>
         <classes>
-            <!-- <class	name="com.ecommerce.register.TC_01_User_Register" />
+             <class	name="com.ecommerce.register.TC_01_User_Register" />
               <class name="com.ecommerce.login.TC_02_User_Login" />-->
               <class name="com.ecommerce.account.Account_EditMyAccount" />
              <class	name="com.ecommerce.account.Account_ChangePassword" />
              <class	name="com.ecommerce.account.Account_AddAddress" />
              <class	name="com.ecommerce.account.Account_AddressBook" />
-             <class	name="com.ecommerce.account.Account_MyVoucher" />-->
+             <class	name="com.ecommerce.account.Account_MyVoucher" />
 
             <class name="com.ecommerce.product.Shopping_Cart"/>
         </classes>
@@ -28,11 +28,11 @@
         <parameter name="browser" value="firefox"/>
         <classes>
 
-           <!--  <class name="com.ecommerce.account.Account_EditMyAccount"/>
+            <class name="com.ecommerce.account.Account_EditMyAccount"/>
             <class name="com.ecommerce.account.Account_ChangePassword"/>
             <class name="com.ecommerce.account.Account_AddAddress"/>
             <class name="com.ecommerce.account.Account_AddressBook"/>
-            <class name="com.ecommerce.account.Account_MyVoucher"/>-->
+            <class name="com.ecommerce.account.Account_MyVoucher"/>
             <class name="com.ecommerce.product.Shopping_Cart"/>
         </classes>
     </test>
@@ -41,11 +41,11 @@
         <classes>
 
             <class name="com.ecommerce.account.Account_EditMyAccount"/>
-           <!--  <class name="com.ecommerce.account.Account_ChangePassword"/>
+           <class name="com.ecommerce.account.Account_ChangePassword"/>
             <class name="com.ecommerce.account.Account_AddAddress"/>
             <class name="com.ecommerce.account.Account_AddressBook"/>
             <class name="com.ecommerce.account.Account_MyVoucher"/>
-            <class name="com.ecommerce.product.Shopping_Cart"/>-->
+            <class name="com.ecommerce.product.Shopping_Cart"/>
         </classes>
     </test>
 </suite>
