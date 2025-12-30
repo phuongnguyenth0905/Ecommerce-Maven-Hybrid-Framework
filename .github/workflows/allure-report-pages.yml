@@ -45,8 +45,8 @@ jobs:
       - name: Debug Allure results
         run: |
           echo "== allure-results =="
-          ls -la target/allure-results
-          cat target/allure-results/environment.properties
+          ls -la ./allure-results
+          cat ./allure-results/environment.properties
     
       - name: Deploy Allure Report to GitHub Pages
         if: always()
