@@ -48,12 +48,12 @@ jobs:
           curl -o allure.tgz -Ls https://github.com/allure-framework/allure2/releases/download/2.30.0/allure-2.30.0.tgz
           tar -zxvf allure.tgz -C /tmp
           echo "/tmp/allure-2.30.0/bin" >> $GITHUB_PATH
-          allure --version
+          allure --version  # Kiểm tra xem lệnh allure có chạy không
 
       - name: Generate Allure Report
         if: always()
         run: |
-          ls -la target/allure-results || true  # Debug: xem folder có file không
+          ls -la target/allure-results || true  # Debug: xem folder có file JSON không
           allure generate target/allure-results --clean -o allure-report || true
           ls -la allure-report || true
 
