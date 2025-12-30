@@ -26,6 +26,21 @@ jobs:
       - name: Run Maven Tests
         run: mvn clean test -Dsurefire.suiteXmlFiles=testNG.xml
 
+      - name: Generate Allure executor (CI info)
+        if: always()
+        run: |
+          mkdir -p target/allure-results
+          cat <<EOF > target/allure-results/executor.json
+          {
+            "name": "GitHub Actions",
+            "type": "github",
+            "url": "https://github.com/${{ github.repository }}/actions",
+            "buildOrder": ${{ github.run_number }},
+            "buildName": "CI Run #${{ github.run_number }}",
+            "buildUrl": "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
+          }
+          EOF
+
       - name: Install Allure CLI
         if: always()
         run: |
