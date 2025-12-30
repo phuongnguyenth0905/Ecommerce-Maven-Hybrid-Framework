@@ -1,53 +1,46 @@
-name: Run Tests & Publish Allure Report
+name: Run Automation Tests (Docker) & Publish Allure Report
 
 on:
-  push:
-    branches: [ "master" ]
   workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  test-and-report:
+  test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout source code
+      - name: Checkout source
         uses: actions/checkout@v4
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '17'
-          cache: 'maven'
+      - name: Build Docker image
+        run: docker build -t automation-tests .
 
-      - name: Run Maven Tests
-        run: mvn clean test -Dsurefire.suiteXmlFiles=testNG.xml
-       
+      - name: Run tests in Docker
+        run: |
+          docker run --rm \
+          -v ${{ github.workspace }}/allure-results:/app/allure-results \
+          automation-tests
+
       - name: Install Allure CLI
         if: always()
         run: |
-          sudo apt-get update
-          sudo apt-get install -y default-jre
-          curl -o allure.tgz -Ls https://github.com/allure-framework/allure2/releases/download/2.27.0/allure-2.27.0.tgz
-          tar -zxvf allure.tgz
+          curl -Lo allure.tgz https://github.com/allure-framework/allure2/releases/download/2.27.0/allure-2.27.0.tgz
+          tar -xzf allure.tgz
           sudo mv allure-2.27.0 /opt/allure
           sudo ln -s /opt/allure/bin/allure /usr/bin/allure
-          allure --version
 
       - name: Generate Allure Report
         if: always()
         run: |
           allure generate allure-results --clean -o allure-report
-          ls -la allure-results
 
       - name: Deploy Allure Report to GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./allure-report
+          publish_dir: allure-report
           publish_branch: gh-pages
           force_orphan: true
