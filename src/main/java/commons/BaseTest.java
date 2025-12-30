@@ -30,10 +30,6 @@ public class BaseTest {
     protected final Logger log;
     protected static String emailAddress, password;
 
-    @BeforeSuite(alwaysRun = true)
-    public void beforeSuite() {
-        String projectRoot = System.getProperty("user.dir");
-        AllureEnvWriterReport.writeEnvironment(projectRoot);}
 
     protected BaseTest() {
         log = LogManager.getLogger(getClass());
