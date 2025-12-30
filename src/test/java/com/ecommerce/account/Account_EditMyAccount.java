@@ -47,7 +47,7 @@ public class Account_EditMyAccount extends BaseTest {
 
     }
 
-    @Test(groups = "Edit Account User")
+    @Test
     public void AccountDashboard_01() {
         log.info("Edit Account - Step 05: Open Edit Account page");
         editAccountPage = myAccountPage.openSidebarPageByName("Edit Account", EditAccountPageObject.class);

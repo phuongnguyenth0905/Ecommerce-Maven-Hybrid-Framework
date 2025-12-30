@@ -38,7 +38,7 @@ public class Account_AddAddress extends BaseTest {
         region = "Portland Parish";
     }
 
-    @Test(groups = "Add Address of Account")
+    @Test
     @Step("Input information user")
     public void AccountDashboard_01() {
         log.info("Add Address Account - Step 01: Open Add Address Account Link");

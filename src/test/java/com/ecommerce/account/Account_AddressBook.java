@@ -38,14 +38,14 @@ public class Account_AddressBook extends BaseTest {
         region = "Hebei";
     }
 
-    @Test(groups = "Open Address Book of Account User")
+    @Test
     public void Account_Address_01() {
         log.info("Address Account - Step 01: Open Add Address Account Link");
         accountAddressBookPage = myAccountPage.openSidebarPageByName("Address Book", AccountAddressBookPageObject.class);
 
     }
 
-    @Test(groups = "Delete Address Book of Account User")
+    @Test
     public void DeleteAddressBook() {
         log.info("Address Account - Delete AddressBook - Step 02: Delete Address Book Entries");
         accountAddressBookPage.clickAddressActionByText("Delete");

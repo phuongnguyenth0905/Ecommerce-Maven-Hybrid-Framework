@@ -29,7 +29,7 @@ public class Shopping_Cart extends BaseTest {
 
 
     }
-    @Test(groups = "Add to Cart Product")
+    @Test
     @Step("Shopping Cart Add Products")
     public void Cart_Add_01() {
         log.info("Shopping Cart - Add Product - Steps 01: Open navbar Top categories of 'Software' menu");
@@ -58,7 +58,7 @@ public class Shopping_Cart extends BaseTest {
         productsPage.refreshPage(driver);
     }
 
-    @Test(groups = "Edit Cart Product")
+    @Test
     @Step("Product Details Shopping Cart UI")
     public void Edit_Checkout_Cart_02() {
         log.info("Shopping Cart - Product Details- Steps 01: Click Shopping Cart Icon");

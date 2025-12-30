@@ -37,7 +37,7 @@ public class Account_MyVoucher extends BaseTest {
 
     }
 
-    @Test(groups = "Add to Account MyVoucher")
+    @Test
     public void Account_MyVoucher_01_Open() {
         log.info("My Voucher Account - Step 01: Open My Voucher link");
         myVoucherPage = homePage.openMyAccountHeaderItem("My voucher", MyVoucherPageObject.class);
@@ -47,7 +47,7 @@ public class Account_MyVoucher extends BaseTest {
 
     }
 
-    @Test(groups = "Account MyVoucher is Validated")
+    @Test
     public void Account_MyVoucher_02_Validated() {
         log.info("My Voucher Account - Step 03: Click Continue Button ");
         myVoucherPage.clickContinueButton();
@@ -71,7 +71,7 @@ public class Account_MyVoucher extends BaseTest {
 
     }
 
-    @Test(groups = "Create Gif Voucher for Account User")
+    @Test
     public void Account_MyVoucher_03_Create_Gif_Voucher() {
         log.info("My Voucher Account - Step 09: Input to 'Recipient's Name' textbox");
         myVoucherPage.inputToRecipientNameTextbox(recipientName);
