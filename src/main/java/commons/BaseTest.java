@@ -13,10 +13,12 @@ import org.testng.Assert;
 import org.apache.logging.log4j.Logger;
 import org.testng.Reporter;
 import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeSuite;
 import pageObjects.HomePageObject;
 import pageObjects.LoginPageObject;
 import pageObjects.MyAccountPageObject;
-
+import reportConfig.AllureEnvWriterReport;
+import org.testng.annotations.BeforeSuite;
 import java.io.File;
 import java.time.Duration;
 import java.util.Collections;
@@ -27,6 +29,11 @@ public class BaseTest {
     WebDriver driver;
     protected final Logger log;
     protected static String emailAddress, password;
+
+    @BeforeSuite(alwaysRun = true)
+    public void beforeSuite() {
+        String projectRoot = System.getProperty("user.dir");
+        AllureEnvWriterReport.writeEnvironment(projectRoot);}
 
     protected BaseTest() {
         log = LogManager.getLogger(getClass());
